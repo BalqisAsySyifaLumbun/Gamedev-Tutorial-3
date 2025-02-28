@@ -22,7 +22,6 @@ func _physics_process(delta):
 
 	if is_on_floor():
 		jumps_left = max_jumps
-		dashing = false 
 
 	if Input.is_action_just_pressed('ui_up') and jumps_left > 0:
 		velocity.y = jump_speed
