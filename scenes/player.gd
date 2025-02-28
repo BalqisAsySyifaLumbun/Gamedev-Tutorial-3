@@ -2,82 +2,76 @@ extends CharacterBody2D
 
 @export var walk_speed = 200
 @export var dash_speed = 400
-@export var gravity = 200.0
+@export var gravity = 100.0
 @export var jump_speed = -250
+
 @onready var sprite_2d = $Sprite2D
-@export var max_jumps: int = 2 
-@export var max_dash: int = 3 
+
+@export var max_jumps: int = 2
 var jumps_left: int = max_jumps
-var dash_left: int = max_dash
-var power_dash: int = 1
-const tap_interval = 1
-var tap_time = 0
-var right_press = 0
-var left_press = 0
-#https://www.youtube.com/watch?v=GpLy_e1s14A
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+const tap_interval = 0.3  
+var last_left_tap_time = 0.0
+var last_right_tap_time = 0.0
+var dashing = false  
+var dash_timer = 0.2  
+var dash_time_left = 0.0
 
 func _physics_process(delta):
-	velocity.y += delta * gravity
-	
-	
+	velocity.y += gravity * delta  
+
 	if is_on_floor():
 		jumps_left = max_jumps
-		
-	if Input.is_action_just_pressed('ui_up'):
-		if jumps_left > 0:
-			velocity.y = jump_speed
-			jumps_left -= 1
-			sprite_2d.animation = "jump"
-		
-		
-	if Input.is_action_pressed("ui_left"):
-		sprite_2d.flip_h = true
-		if Input.is_action_pressed("ui_up"):
-			sprite_2d.animation = "jump" 
-			velocity.x = -walk_speed
-		elif Input.is_action_just_pressed("ui_left"):
-			if Time.get_ticks_msec() / 1000 - (2*tap_time) < tap_interval:
-				velocity.x = -dash_speed
-		else:
-			velocity.x = -walk_speed
-		tap_time = Time.get_ticks_msec() / 1000
-		sprite_2d.animation = "walk"
-		
-	elif Input.is_action_pressed("ui_right"):
-		right_press += 1
-		sprite_2d.flip_h = false
-		print("Taptime: ",tap_time)
-		print("Much: ",Time.get_ticks_msec() / 1000)
-		print("Res: ",Time.get_ticks_msec() / 1000 - tap_time)
-		if Input.is_action_just_pressed("ui_right") and right_press >= 1:
-				print("Tru mint")
-				velocity.x = dash_speed
-				print("Dasher")
-				
-		elif Input.is_action_pressed("ui_up"):
-			sprite_2d.animation = "jump"
-			velocity.x =  walk_speed
-			print("Jumrite")
-		else:
-			print("Walkrite")
-			velocity.x =  walk_speed
-		tap_time = Time.get_ticks_msec() / 1000
-		sprite_2d.animation = "walk"
-	else:
-		velocity.x = 0
-		sprite_2d.animation = "idle"
-		tap_time = 0
-		right_press = 0
-		left_press = 0
+		dashing = false 
 
-	# "move_and_slide" already takes delta time into account.
+	if Input.is_action_just_pressed('ui_up') and jumps_left > 0:
+		velocity.y = jump_speed
+		jumps_left -= 1
+		sprite_2d.animation = "jump"
+
+	var direction = 0
+	if dashing:
+		dash_time_left -= delta
+		if dash_time_left <= 0:
+			dashing = false 
+	else:
+		if Input.is_action_just_pressed("ui_left"):
+			var now = Time.get_ticks_msec() / 1000.0
+			if now - last_left_tap_time < tap_interval:
+				dashing = true
+				dash_time_left = dash_timer
+				velocity.x = -dash_speed
+			else:
+				velocity.x = -walk_speed
+			last_left_tap_time = now
+			sprite_2d.flip_h = true
+			sprite_2d.animation = "walk"
+
+		elif Input.is_action_just_pressed("ui_right"):
+			var now = Time.get_ticks_msec() / 1000.0
+			if now - last_right_tap_time < tap_interval:
+				dashing = true
+				dash_time_left = dash_timer
+				velocity.x = dash_speed
+			else:
+				velocity.x = walk_speed
+			last_right_tap_time = now
+			sprite_2d.flip_h = false
+			sprite_2d.animation = "walk"
+
+		elif Input.is_action_pressed("ui_left"):
+			velocity.x = -walk_speed
+			sprite_2d.flip_h = true
+			sprite_2d.animation = "walk"
+		
+		elif Input.is_action_pressed("ui_right"):
+			velocity.x = walk_speed
+			sprite_2d.flip_h = false
+			sprite_2d.animation = "walk"
+
+
+		else:
+			velocity.x = 0
+			sprite_2d.animation = "idle"
+
 	move_and_slide()
