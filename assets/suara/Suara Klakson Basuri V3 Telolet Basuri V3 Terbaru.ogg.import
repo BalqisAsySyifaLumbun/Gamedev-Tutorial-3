@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://4if6vl7iybdy"
+path="res://.godot/imported/Suara Klakson Basuri V3 Telolet Basuri V3 Terbaru.ogg-01ba0f81a846125cb74c01a5f8236a6f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/suara/Suara Klakson Basuri V3 Telolet Basuri V3 Terbaru.ogg"
+dest_files=["res://.godot/imported/Suara Klakson Basuri V3 Telolet Basuri V3 Terbaru.ogg-01ba0f81a846125cb74c01a5f8236a6f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

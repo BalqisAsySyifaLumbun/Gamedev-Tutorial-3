@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://berjjc7obmfew"]
+[gd_scene load_steps=16 format=3 uid="uid://berjjc7obmfew"]
 
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_t70eb"]
 [ext_resource type="Texture2D" uid="uid://cvadpqwg1er6a" path="res://assets/Main Characters/walk_0000.png" id="2_jk77b"]
 [ext_resource type="Texture2D" uid="uid://dxwhy8ca6633m" path="res://assets/Main Characters/walk_0001.png" id="3_6yrsd"]
 [ext_resource type="Texture2D" uid="uid://ctfmig6sq0oyw" path="res://assets/Main Characters/walk_0002.png" id="4_6vmu3"]
@@ -78,6 +79,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(252, 216)
+script = ExtResource("1_t70eb")
 
 [node name="CharacterBody2D" type="CollisionShape2D" parent="."]
 position = Vector2(-233, -205)
@@ -88,5 +90,17 @@ position = Vector2(-230, -198)
 scale = Vector2(0.1515, 0.156)
 sprite_frames = SubResource("SpriteFrames_b0skw")
 animation = &"walk"
-autoplay = "idle"
+autoplay = "walk"
 frame_progress = 0.896387
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.2, 1.2)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -198.0
+offset_top = -260.0
+offset_right = -55.0
+offset_bottom = -214.0
+text = "HOLY MOLY YOU A CAR?"
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

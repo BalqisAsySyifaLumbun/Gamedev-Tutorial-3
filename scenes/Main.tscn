@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsyfep1odrxje"]
+[gd_scene load_steps=7 format=3 uid="uid://dsyfep1odrxje"]
 
-[ext_resource type="PackedScene" uid="uid://c63r6o5s5lvp6" path="res://Scenes/Ground.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://c63r6o5s5lvp6" path="res://scenes/Ground.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://berjjc7obmfew" path="res://scenes/Player.tscn" id="2_s1i5h"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="3_6ot3s"]
+[ext_resource type="PackedScene" uid="uid://c6xsuiyghk53" path="res://scenes/KucingBiru.tscn" id="2_yjj02"]
+[ext_resource type="AudioStream" uid="uid://buuyxhgwl1bl4" path="res://assets/suara/Recording (4).ogg" id="4_lyvck"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msx8n"]
 size = Vector2(89, 678)
@@ -51,6 +52,22 @@ shape = SubResource("RectangleShape2D_msx8n")
 position = Vector2(569.25, 660.5)
 shape = SubResource("RectangleShape2D_twafg")
 
+[node name="KucingBiru" parent="." instance=ExtResource("2_yjj02")]
+position = Vector2(1098, 611)
+
+[node name="Ground4" parent="." instance=ExtResource("1")]
+position = Vector2(1337, 665)
+
 [node name="Player" parent="." instance=ExtResource("2_s1i5h")]
 position = Vector2(368, 336)
-script = ExtResource("3_6ot3s")
+
+[node name="Meong" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_lyvck")
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 223.0
+offset_top = 187.0
+offset_right = 335.0
+offset_bottom = 225.0
+text = "Find CAR"

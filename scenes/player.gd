@@ -4,9 +4,9 @@ extends CharacterBody2D
 @export var dash_speed = 400
 @export var gravity = 100.0
 @export var jump_speed = -250
-
+@onready var kucing_biru= get_parent().get_node('KucingBiru')
 @onready var sprite_2d = $Sprite2D
-
+@onready var text_2d = $RichTextLabel
 @export var max_jumps: int = 2
 var jumps_left: int = max_jumps
 
@@ -17,7 +17,24 @@ var dashing = false
 var dash_timer = 0.2  
 var dash_time_left = 0.0
 
+#func _ready():
+	#kucing_biru = get_parent().get_node_or_null('KucingBiru')
+	#if kucing_biru:
+	#	print("Found KucingBiru")
+	#else:
+	#	print("KucingBiru node not found!")
+
 func _physics_process(delta):
+	
+	if self.global_position.x > 980 and self.global_position.x < 1400:
+		if self.global_position.y > 600:
+			sprite_2d.animation = "walk"
+			if sprite_2d.animation == "walk":
+				print("True mint")
+			text_2d.visible = true
+	else:
+		text_2d.visible = false
+	
 	velocity.y += gravity * delta  
 
 	if is_on_floor():
@@ -72,5 +89,8 @@ func _physics_process(delta):
 		else:
 			velocity.x = 0
 			sprite_2d.animation = "idle"
+			if self.global_position.x > 980 and self.global_position.x < 1400:
+				if self.global_position.y > 600:
+					sprite_2d.animation = "walk"
 
 	move_and_slide()

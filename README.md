@@ -1,3 +1,12 @@
+- Latihan AnimatedSprite, saya tidak mengubah apa-apa dari Player karena dari kemarin saya menggunakan animated sprite. 
+Tapi saya mendapatkan AnimatedSprite dari Freepik.
+https://www.freepik.com/free-vector/hand-drawn-animation-frames-element-collection_33591464.htm#fromView=keyword&page=1&position=0&uuid=0cb1f4f3-1746-474f-8b3d-e3d8931b5ca5&query=Sprite+Sheets
+
+- Saya menambah sound dari suara saya sendiri (Meong) dan suara klakson Telolet Basuri V3 (https://www.youtube.com/watch?v=elT7hoZQ2r8).
+
+- Untuk interaksi, Player dan Kucing biru akan berdialog saat berdekatan, dan suara telolet akan muncul. Dan untuk jarak suara telolet hanya dapat didengar 
+ketika berada di area dekat kucing biru.
+________
 Double jump:
 	- Berikan perhitungan limit berapa kali ia bisa jump (2 kali)
 	- Pastikan krn double jump tidak dilakukan di floor, hanya jumlah jump yang direset, tapi bisa loncat di atas.
